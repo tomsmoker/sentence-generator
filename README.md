@@ -28,6 +28,26 @@ There are a few options in the `nlp.js` file:
 - `MAX_TRAINING_LINES_PER_FILE` determines how many lines of the file the classifier should train from.
 - `MIN_SENT_LENGTH` ensures all sentences are greater than a certain length.
 
+## How it works
+
+The Naive Bayes classifier predicts a word given a word. The sentence generation runs a sequence of predictions, starting from the start of sentence token (`<SOS>`) and ending when it predicts the end of sentence token (`<EOS>`). It has no idea about any words prior to the previous word, so it isn't very good when compared to state-of-the-art neural machine translation models. It does, however, generate some reasonable-looking sentences.
+
+Each sentence is tokenised, punctuation is removed, and then it is split into bi-grams to feed into the classifier. For example, the sentence:
+
+    Person was walking around.
+
+Will be converted to:
+
+    [['<SOS>'], 'person'],
+    [['person'], 'was'],
+    [['was'], 'walking'],
+    [['walking'], 'around'],
+    [['around'], '<EOS>']]
+
+The "Natural" library's NaiveBayesClassifier then trains from this data and is used to generate sentences as mentioned above.
+
 ## Notes
 
 It's very slow, unfortunately. It only runs on a CPU. It is possible to run on multiple cores by changing the `classifier.train()` line in `nlp.js`, but I didn't have much success with it (it threw a lot of errors) so I gave up.
+
+I did originally attempt to use ngrams instead of bi-grams, but found that the Naive Bayes classifier was predicting a word regardless of the order of the context words, so it ended up being pretty useless. Predicting the next word given the current word seems to produce the most human-readable results.
