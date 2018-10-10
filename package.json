@@ -1,0 +1,11 @@
+{
+  "name": "sentence-generator",
+  "version": "1.0.0",
+  "description": "A simple sentence generator.",
+  "main": "bot.js",
+  "author": "Michael",
+  "dependencies": {
+    "natural": "^0.6.1",
+    "winston": "^3.1.0"
+  }
+}
