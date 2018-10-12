@@ -8,7 +8,7 @@ const logger = require('./config/winston');
 
 // A simple sentence generator.
 class SentenceGenerator {
-	constructor(trainingFilename = "data/train/example.txt",
+	constructor(trainingFilename = "data/train/bucket_wheel_fmea.txt",
 				outputFilename = "data/output/output.txt",
 				classifierFilename = "data/asset/classifier.json") {		
 		var t = this;
